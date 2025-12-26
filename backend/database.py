@@ -295,9 +295,17 @@ def save_decision(game_id: str, decision: dict):
     
     Raises:
         sqlite3.Error: If database write fails
+        ValueError: If decision data cannot be serialized
     """
     conn = get_db_connection()
     c = conn.cursor()
+    
+    # Safely serialize gates data
+    try:
+        gates_json = json.dumps(decision.get('gates', {}))
+    except (TypeError, ValueError) as e:
+        print(f"[Warning] Failed to serialize decision gates: {e}")
+        gates_json = json.dumps({"error": "Serialization failed"})
     
     c.execute('''
         INSERT INTO decisions (
@@ -311,7 +319,7 @@ def save_decision(game_id: str, decision: dict):
         'Moneyline',  # Default market
         'TBD',  # Would need to determine from winner
         0.0,  # Stake sizing not implemented yet
-        json.dumps(decision.get('gates', {}))
+        gates_json
     ))
     
     conn.commit()
