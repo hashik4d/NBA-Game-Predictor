@@ -283,5 +283,47 @@ def save_prediction(game_id: str, result: dict):
     conn.commit()
     conn.close()
 
+def save_decision(game_id: str, decision: dict):
+    """
+    Saves the final betting decision to the database.
+    
+    Args:
+        game_id: Unique identifier for the game (format: YYYYMMDD-AWAY@HOME)
+        decision: Decision dictionary containing:
+            - action: str ("BET MAX", "BET SMALL", or "PASS")
+            - gates: dict with edge, consensus, confidence status
+    
+    Raises:
+        sqlite3.Error: If database write fails
+        ValueError: If decision data cannot be serialized
+    """
+    conn = get_db_connection()
+    c = conn.cursor()
+    
+    # Safely serialize gates data
+    try:
+        gates_json = json.dumps(decision.get('gates', {}))
+    except (TypeError, ValueError) as e:
+        print(f"[Warning] Failed to serialize decision gates: {e}")
+        gates_json = json.dumps({"error": "Serialization failed"})
+    
+    c.execute('''
+        INSERT INTO decisions (
+            game_id, timestamp_utc, action, 
+            market, side, stake_units, rationale
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    ''', (
+        game_id,
+        datetime.utcnow().isoformat(),
+        decision.get('action', 'PASS'),
+        'Moneyline',  # Default market
+        'TBD',  # Would need to determine from winner
+        0.0,  # Stake sizing not implemented yet
+        gates_json
+    ))
+    
+    conn.commit()
+    conn.close()
+
 if __name__ == "__main__":
     init_db()
