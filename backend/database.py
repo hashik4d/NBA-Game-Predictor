@@ -283,5 +283,39 @@ def save_prediction(game_id: str, result: dict):
     conn.commit()
     conn.close()
 
+def save_decision(game_id: str, decision: dict):
+    """
+    Saves the final betting decision to the database.
+    
+    Args:
+        game_id: Unique identifier for the game (format: YYYYMMDD-AWAY@HOME)
+        decision: Decision dictionary containing:
+            - action: str ("BET MAX", "BET SMALL", or "PASS")
+            - gates: dict with edge, consensus, confidence status
+    
+    Raises:
+        sqlite3.Error: If database write fails
+    """
+    conn = get_db_connection()
+    c = conn.cursor()
+    
+    c.execute('''
+        INSERT INTO decisions (
+            game_id, timestamp_utc, action, 
+            market, side, stake_units, rationale
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    ''', (
+        game_id,
+        datetime.utcnow().isoformat(),
+        decision.get('action', 'PASS'),
+        'Moneyline',  # Default market
+        'TBD',  # Would need to determine from winner
+        0.0,  # Stake sizing not implemented yet
+        json.dumps(decision.get('gates', {}))
+    ))
+    
+    conn.commit()
+    conn.close()
+
 if __name__ == "__main__":
     init_db()
