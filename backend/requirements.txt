@@ -1,0 +1,12 @@
+google-genai
+anthropic
+openai
+fastapi
+uvicorn
+nba_api
+pydantic
+pydantic-settings
+google-generativeai
+requests
+python-dotenv
+asyncio

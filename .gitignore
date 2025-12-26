@@ -1,0 +1,59 @@
+# Secrets & Environment
+.env
+.env.local
+.env.*
+*.env
+backend/.env
+backend/.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+.next/
+out/
+coverage/
+
+# Database & Models
+*.db
+*.sqlite3
+*.pkl
+backend/nba_predictor.db
+backend/nba_model_v1.pkl
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+claude_debug.txt
+backend/ai_payloads.log
+backend/claude_debug.txt
+
+# OS Files
+.DS_Store
+Thumbs.db
