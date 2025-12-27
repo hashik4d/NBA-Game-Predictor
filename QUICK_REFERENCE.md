@@ -118,14 +118,15 @@ async def predict(home: str, away: str, date: str):
     return await ai_service.predict_winner(home, away, date)
 
 # ✅ After
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 class PredictRequest(BaseModel):
     home: str = Field(..., min_length=2, max_length=50)
     away: str = Field(..., min_length=2, max_length=50)
     date: str = Field(..., pattern=r'^\d{4}-\d{2}-\d{2}$')
     
-    @validator('home', 'away')
+    @field_validator('home', 'away')
+    @classmethod
     def validate_team(cls, v):
         if not v.replace(' ', '').replace('-', '').isalnum():
             raise ValueError('Invalid team name')

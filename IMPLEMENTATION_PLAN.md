@@ -122,7 +122,7 @@ settings = Settings()
 
 **Changes:**
 ```python
-from pydantic import BaseModel, validator, Field
+from pydantic import BaseModel, field_validator, Field
 from datetime import datetime
 
 class PredictRequest(BaseModel):
@@ -130,14 +130,16 @@ class PredictRequest(BaseModel):
     away: str = Field(..., min_length=2, max_length=50)
     date: str = Field(..., pattern=r'^\d{4}-\d{2}-\d{2}$')
     
-    @validator('home', 'away')
+    @field_validator('home', 'away')
+    @classmethod
     def validate_team_name(cls, v):
         # Only alphanumeric, spaces, and hyphens
         if not v.replace(' ', '').replace('-', '').isalnum():
             raise ValueError('Invalid team name')
         return v.strip()
     
-    @validator('date')
+    @field_validator('date')
+    @classmethod
     def validate_date(cls, v):
         try:
             datetime.strptime(v, '%Y-%m-%d')
