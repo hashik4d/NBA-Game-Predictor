@@ -66,5 +66,37 @@ python backend/model_service.py
 ## 📸 Screenshots
 *(Add screenshots of the Game Card and Decision Ticket here)*
 
+## 📚 Documentation
+
+### 🚀 For Developers & Contributors
+
+**New to the project?** Start here:
+- **[ROADMAP.md](ROADMAP.md)** - 🗺️ Visual implementation journey with 3 paths to choose from
+- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - ⚡ Copy-paste ready fixes and quick wins
+- **[PROJECT_GUIDE.md](PROJECT_GUIDE.md)** - 🎓 Beginner-friendly explanation of how everything works
+
+**Ready to implement improvements?**
+- **[IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md)** - 📋 Comprehensive 10-phase plan with code examples
+- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - 💡 At-a-glance guide with commands and examples
+
+**Want to understand the codebase?**
+- **[CODE_ANALYSIS.md](CODE_ANALYSIS.md)** - 🔍 Deep analysis of strengths and areas for improvement
+- **[CRITICAL_FIXES.md](CRITICAL_FIXES.md)** - ✅ What's already been fixed
+- **[SUMMARY.md](SUMMARY.md)** - 📊 Quick assessment and recommendations
+
+### 📊 Current Status
+
+**Overall Rating:** 6.5/10 - Working MVP, needs hardening for production
+
+**What's Working:** ✅ Multi-AI consensus, Real-time data, Full-stack app, Database persistence  
+**What Needs Work:** ⚠️ Security, Testing, Error handling, Logging, Performance optimization
+
+**Production Ready Timeline:**
+- 3 weeks → Minimum Viable Production (7.5/10)
+- 5 weeks → Solid Production Ready (8.5/10) ← Recommended
+- 6+ weeks → Best-in-Class System (9.0/10)
+
+**Next Steps:** Start with [ROADMAP.md](ROADMAP.md) to choose your path!
+
 ## 📄 License
 MIT
